@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Basoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav id="navbar" class="scrolled">
+  <a href="index.html" class="nav-logo-wrap">
+    <img src="img/logo.png" alt="Basoria Logo" class="nav-logo-img">
+    <span class="nav-brand-name">BASORIA ADMIN</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">KEMBALI KE WEB</a></li>
+    <li><a href="admin.html" class="active">KELOLA MENU</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="admin-container">
+  <div class="admin-header">
+    <div>
+      <p class="eyebrow dark">DASHBOARD (DUMMY LOCALSTORAGE)</p>
+      <h2 class="section-heading">Kelola <em>Menu</em></h2>
+    </div>
+    <button class="btn-gold" onclick="openModal()">+ TAMBAH MENU</button>
+  </div>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nama Menu</th>
+          <th>Harga</th>
+          <th>Kategori</th>
+          <th>Badge</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="menu-table-body">
+        <!-- Rendered by JS -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Form -->
+<div class="modal" id="menuModal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Tambah Menu</h3>
+    <form id="menuForm">
+      <input type="hidden" id="menuId">
+      <div class="form-group">
+        <label>NAMA MENU</label>
+        <input type="text" id="menuName" required>
+      </div>
+      <div class="form-group">
+        <label>HARGA (Rp)</label>
+        <input type="number" id="menuPrice" required>
+      </div>
+      <div class="form-group">
+        <label>DESKRIPSI</label>
+        <textarea id="menuDesc" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label>KATEGORI</label>
+        <select id="menuCategory" required>
+          <option value="bakso">Menu Utama (Bakso)</option>
+          <option value="topping">Topping</option>
+          <option value="minuman">Minuman</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>URL FOTO (relatif)</label>
+        <input type="text" id="menuImg" placeholder="img/bakso-original.jpg" required>
+      </div>
+      <div class="form-group">
+        <label>BADGE (Opsional)</label>
+        <input type="text" id="menuBadge" placeholder="contoh: POPULER / PEDAS">
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn-outline-dark" onclick="closeModal()">BATAL</button>
+        <button type="submit" class="btn-maroon">SIMPAN</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

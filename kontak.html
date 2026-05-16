@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontak — Basoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo-wrap">
+    <img src="img/logo.png" alt="Basoria Logo" class="nav-logo-img">
+    <span class="nav-brand-name">BASORIA</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">BERANDA</a></li>
+    <li><a href="menu.html">MENU</a></li>
+    <li><a href="tentang.html">TENTANG</a></li>
+    <li><a href="galeri.html">GALERI</a></li>
+    <li><a href="kontak.html" class="active">KONTAK</a></li>
+  </ul>
+  <a href="https://wa.me/6285156952944" target="_blank" class="nav-cta">PESAN SEKARANG</a>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-banner" style="height:42vh;min-height:280px;">
+  <div class="page-banner-fallback"></div>
+  <div class="page-banner-overlay"></div>
+  <div class="page-banner-content">
+    <p class="page-banner-eyebrow">Basoria · Bogor</p>
+    <h1 class="page-banner-title">KONTAK <em>&amp; LOKASI</em></h1>
+  </div>
+</div>
+
+<section class="section-white" style="padding-top: 8rem;">
+  <!-- Row 1: Info (Text Left) + Form (Media Right) -->
+  <div class="contact-row fade-up">
+    <div class="contact-text" style="padding-right: 2rem;">
+      <h2 style="margin-bottom: 2.5rem;">Temukan<br><em>Kami</em></h2>
+
+      <div class="contact-detail">
+        <div class="contact-lbl" style="font-size: 0.65rem; letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 600;">ALAMAT</div>
+        <div class="contact-val" style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.8rem;">Klapanunggal, Kec. Klapanunggal<br>Kabupaten Bogor, Jawa Barat 16710</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-lbl" style="font-size: 0.65rem; letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 600;">JAM OPERASIONAL</div>
+        <div class="contact-val" style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.8rem;">Buka: 09.00 WIB<br>Layanan: 10.00 – 22.00 WIB<br>Setiap Hari</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-lbl" style="font-size: 0.65rem; letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 600;">WHATSAPP</div>
+        <div class="contact-val" style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.8rem;"><a href="https://wa.me/6285156952944" style="color:var(--maroon-dark); font-weight:500;">0851-5695-2944</a></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-lbl" style="font-size: 0.65rem; letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 600;">INSTAGRAM</div>
+        <div class="contact-val" style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.8rem;"><a href="https://instagram.com/basoriaa" target="_blank" style="color:var(--maroon-dark); font-weight:500;">@basoriaa</a></div>
+      </div>
+    </div>
+    
+    <!-- Form in the media side -->
+    <div class="contact-media" style="padding: 0; background: transparent;">
+      <div class="contact-form-wrap" style="width: 100%; border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); padding: 3.5rem; background: var(--off-white); border: 1px solid rgba(0,0,0,0.02);">
+        <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--maroon-dark);">Kirim Pesan</h3>
+        <div class="form-group">
+          <label>NAMA LENGKAP</label>
+          <input type="text" id="nama" placeholder="Masukkan nama anda">
+        </div>
+        <div class="form-group">
+          <label>NOMOR WHATSAPP</label>
+          <input type="tel" id="nowa" placeholder="08xx-xxxx-xxxx">
+        </div>
+        <div class="form-group">
+          <label>KEPERLUAN</label>
+          <select id="keperluan">
+            <option>Pemesanan / Order</option>
+            <option>Pertanyaan menu</option>
+            <option>Kritik &amp; saran</option>
+            <option>Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>PESAN ANDA</label>
+          <textarea id="pesan" placeholder="Apa yang ingin anda sampaikan?" style="min-height: 100px; resize: vertical;"></textarea>
+        </div>
+        <button class="btn-submit-full" onclick="kirimPesan()">KIRIM SEKARANG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Location (Media Left, Text Right) -->
+  <div class="contact-row fade-up">
+    <div class="contact-media">
+      <div class="contact-media-inner">
+        <iframe 
+          src="https://maps.google.com/maps?q=HW4W%2BJCG,%20Klapanunggal,%20Kec.%20Klapanunggal,%20Kabupaten%20Bogor,%20Jawa%20Barat%2016710&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+          width="100%" 
+          height="400" 
+          frameborder="0" 
+          style="border:0; display:block;" 
+          allowfullscreen="" 
+          aria-hidden="false" 
+          tabindex="0">
+        </iframe>
+      </div>
+    </div>
+    <div class="contact-text">
+      <h2>Lokasi Kami<br>Mudah Dicari</h2>
+      <p>Berada di titik strategis Klapanunggal, Basoria hadir dengan area parkir luas dan suasana yang nyaman untuk keluarga.</p>
+      <a href="https://maps.google.com/?q=Basoria+Klapanunggal" target="_blank" class="contact-btn">BUKA GOOGLE MAPS</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="img/logo.png" alt="Basoria" class="footer-logo-img">
+      <div class="footer-brand-name">BASORIA</div>
+      <div class="footer-brand-tag">Rasa Juara di Setiap Mangkok</div>
+    </div>
+    <div class="footer-col"><h4>LOKASI</h4><p>Jl. Pajajaran, Bogor</p><p>West Java, Indonesia</p></div>
+    <div class="footer-col"><h4>JAM BUKA</h4><p>Buka: 09.00 WIB</p><p>Layanan: 10.00 – 22.00 WIB</p></div>
+    <div class="footer-col"><h4>KONTAK</h4><a href="https://instagram.com/basoriaa" target="_blank">@basoriaa</a><a href="https://wa.me/6285156952944">0851-5695-2944</a></div>
+  </div>
+  <div class="footer-hr"></div>
+  <div class="footer-bottom"><span>© 2025 Basoria Indonesia</span><span>Rasa Juara di Setiap Mangkok</span></div>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+function kirimPesan() {
+  var nama = document.getElementById('nama').value || 'Pelanggan';
+  var nowa = document.getElementById('nowa').value;
+  var keperluan = document.getElementById('keperluan').value;
+  var pesan = document.getElementById('pesan').value;
+  var msg = 'Halo Basoria! Saya ' + nama + '.\nKeperluan: ' + keperluan;
+  if (pesan) msg += '\nPesan: ' + pesan;
+  if (nowa) msg += '\nNo WA: ' + nowa;
+  window.open('https://wa.me/6285156952944?text=' + encodeURIComponent(msg), '_blank');
+}
+</script>
+</body>
+</html>
