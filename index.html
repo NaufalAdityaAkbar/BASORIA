@@ -1,176 +1,196 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basoria — Rasa Juara di Setiap Mangkok</title>
-<meta name="description" content="Basoria bakso restaurant Bogor. Rasa Juara di Setiap Mangkok. Jl. Pajajaran dekat Telkom & IPB University.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basoria — Rasa Juara di Setiap Mangkok</title>
+  <meta name="description"
+    content="Basoria bakso restaurant Bogor. Rasa Juara di Setiap Mangkok. Jl. Pajajaran dekat Telkom & IPB University.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,700&family=Jost:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="apps/css/style.css">
 </head>
+
 <body>
 
-<!-- ── NAVBAR ── -->
-<nav id="navbar">
-  <a href="index.html" class="nav-logo-wrap">
-    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=150&auto=format&fit=crop" alt="Basoria Logo" class="nav-logo-img">
-    <span class="nav-brand-name">BASORIA</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">BERANDA</a></li>
-    <li><a href="menu.html">MENU</a></li>
-    <li><a href="tentang.html">TENTANG</a></li>
-    <li><a href="galeri.html">GALERI</a></li>
-    <li><a href="kontak.html">KONTAK</a></li>
-  </ul>
-  <a href="https://wa.me/6285156952944" target="_blank" class="nav-cta">PESAN SEKARANG</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo-wrap">
+      <img src="public/header menu menu/LOGOBASORIA.PNG" alt="Basoria Logo" class="nav-logo-img">
+      <span class="nav-brand-name">BASORIA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">BERANDA</a></li>
+      <li><a href="apps/menu.html">MENU</a></li>
+      <li><a href="apps/tentang.html">TENTANG</a></li>
+      <li><a href="apps/galeri.html">GALERI</a></li>
+      <li><a href="apps/kontak.html">KONTAK</a></li>
+    </ul>
+    <a href="https://wa.me/6285156952944" target="_blank" class="nav-cta">PESAN SEKARANG</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <!-- Background image (gambar_bergerak.PNG) dengan animasi zoom -->
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-lines"></div>
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <!-- Background image (gambar_bergerak.PNG) dengan animasi zoom -->
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-lines"></div>
 
-  <div class="hero-content">
-    <p class="hero-eyebrow">Bakso Premium · Bogor · Est. 2023</p>
-    <h1 class="hero-title">BASORIA</h1>
-    <p class="hero-tagline">"Rasa Juara di Setiap Mangkok"</p>
-    <p class="hero-est">INDONESIA · SINCE 2023</p>
-    <div class="hero-divider">
-      <div class="hero-divider-line"></div>
-      <span class="hero-divider-gem">◆</span>
-      <div class="hero-divider-line"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Bakso Premium · Bogor · Est. 2023</p>
+      <h1 class="hero-title">BASORIA</h1>
+      <p class="hero-tagline">"Rasa Juara di Setiap Mangkok"</p>
+      <p class="hero-est">INDONESIA · SINCE 2023</p>
+      <div class="hero-divider">
+        <div class="hero-divider-line"></div>
+        <span class="hero-divider-gem">◆</span>
+        <div class="hero-divider-line"></div>
+      </div>
+      <div class="hero-cta-row">
+        <a href="apps/menu.html" class="btn-gold">LIHAT MENU</a>
+        <a href="apps/kontak.html" class="btn-outline-gold">TEMUKAN KAMI</a>
+      </div>
     </div>
-    <div class="hero-cta-row">
-      <a href="menu.html" class="btn-gold">LIHAT MENU</a>
-      <a href="kontak.html" class="btn-outline-gold">TEMUKAN KAMI</a>
+
+    <div class="hero-scroll">
+      <span class="hero-scroll-label">SCROLL</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+
+    <!-- Marquee di bawah hero -->
+    <div class="hero-marquee-wrap">
+      <div class="hero-marquee-track">
+        <span>BAKSO TETELAN</span><span class="dot">◆</span>
+        <span>BAKSO BERANAK</span><span class="dot">◆</span>
+        <span>BAKSO MERCON</span><span class="dot">◆</span>
+        <span>BAKSO KEJU LUMER</span><span class="dot">◆</span>
+        <span>BAKSO URAT</span><span class="dot">◆</span>
+        <span>BAKSO TELOR</span><span class="dot">◆</span>
+        <span>BAKSO IGA</span><span class="dot">◆</span>
+        <span>BAKSO ORIGINAL</span><span class="dot">◆</span>
+        <span>RASA JUARA DI SETIAP MANGKOK</span><span class="dot">◆</span>
+        <span>BAKSO TETELAN</span><span class="dot">◆</span>
+        <span>BAKSO BERANAK</span><span class="dot">◆</span>
+        <span>BAKSO MERCON</span><span class="dot">◆</span>
+        <span>BAKSO KEJU LUMER</span><span class="dot">◆</span>
+        <span>BAKSO URAT</span><span class="dot">◆</span>
+        <span>BAKSO TELOR</span><span class="dot">◆</span>
+        <span>BAKSO IGA</span><span class="dot">◆</span>
+        <span>BAKSO ORIGINAL</span><span class="dot">◆</span>
+        <span>RASA JUARA DI SETIAP MANGKOK</span><span class="dot">◆</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT STRIP ── -->
+  <div class="about-strip">
+    <!-- Kiri: foto suasana (gambar ke-2 = 23.png) -->
+    <div class="about-strip-img">
+      <img src="public/header menu menu/beranda_tentang.PNG" alt="Suasana Basoria">
+      <div class="about-strip-img-overlay"></div>
+    </div>
+    <!-- Kanan: teks -->
+    <div class="about-strip-body">
+      <p class="eyebrow dark">TENTANG BASORIA</p>
+      <h2 class="section-heading" style="margin-bottom:1.2rem;">Bakso dengan <em>cita rasa juara</em></h2>
+      <p class="about-body-text">
+        BASORIA adalah sebuah brand bisnis bakso yang mengusung slogan "Rasa Juara di Setiap Mangkok", menghadirkan
+        makna lebih dari sekadar makanan. Di Indonesia, bakso bukan hanya hidangan sehari-hari, melainkan makanan rakyat
+        yang bisa dinikmati oleh semua kalangan.
+      </p>
+      <p class="about-body-text">
+        Dari nilai tersebut, BASORIA membawa tiga inti utama: <strong>Juara</strong> dalam kualitas rasa,
+        <strong>Kehangatan</strong> dalam pelayanan, dan <strong>Premium tapi Merakyat</strong> — bakso untuk semua
+        orang dengan standar yang lebih tinggi.
+      </p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">VARIAN BAKSO</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">2023</div>
+          <div class="stat-label">BERDIRI SEJAK</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10–22</div>
+          <div class="stat-label">JAM LAYANAN</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="hero-scroll">
-    <span class="hero-scroll-label">SCROLL</span>
-    <div class="hero-scroll-line"></div>
+  <!-- ── MENU PREVIEW (tanpa harga) ── -->
+  <div class="menu-preview-section">
+    <div class="menu-preview-header">
+      <div>
+        <p class="eyebrow dark">MENU KAMI</p>
+        <h2 class="section-heading">Menu <em>Andalan</em></h2>
+      </div>
+      <a href="apps/menu.html" class="btn-outline-dark">LIHAT SEMUA MENU →</a>
+    </div>
+    <div class="menu-preview-grid" id="dynamic-preview-container">
+      <!-- Di-render oleh JavaScript dari LocalStorage (Bisa digulir horisontal) -->
+    </div>
   </div>
 
-  <!-- Marquee di bawah hero -->
-  <div class="hero-marquee-wrap">
-    <div class="hero-marquee-track">
-      <span>BAKSO TETELAN</span><span class="dot">◆</span>
-      <span>BAKSO BERANAK</span><span class="dot">◆</span>
-      <span>BAKSO MERCON</span><span class="dot">◆</span>
-      <span>BAKSO KEJU LUMER</span><span class="dot">◆</span>
-      <span>BAKSO URAT</span><span class="dot">◆</span>
-      <span>BAKSO TELOR</span><span class="dot">◆</span>
-      <span>BAKSO IGA</span><span class="dot">◆</span>
-      <span>BAKSO ORIGINAL</span><span class="dot">◆</span>
-      <span>RASA JUARA DI SETIAP MANGKOK</span><span class="dot">◆</span>
-      <span>BAKSO TETELAN</span><span class="dot">◆</span>
-      <span>BAKSO BERANAK</span><span class="dot">◆</span>
-      <span>BAKSO MERCON</span><span class="dot">◆</span>
-      <span>BAKSO KEJU LUMER</span><span class="dot">◆</span>
-      <span>BAKSO URAT</span><span class="dot">◆</span>
-      <span>BAKSO TELOR</span><span class="dot">◆</span>
-      <span>BAKSO IGA</span><span class="dot">◆</span>
-      <span>BAKSO ORIGINAL</span><span class="dot">◆</span>
-      <span>RASA JUARA DI SETIAP MANGKOK</span><span class="dot">◆</span>
+  <!-- ── CTA BAND ── -->
+  <div class="cta-band">
+    <div class="cta-band-bg"></div>
+    <div class="cta-band-pattern"></div>
+    <div class="cta-band-content">
+      <h2>Buka Setiap Hari<br>Pukul 10.00 – 22.00 WIB</h2>
+      <p>Kunjungi kami di Jl. Pajajaran Bogor — dekat Telkom &amp; IPB University. Atau hubungi kami via WhatsApp untuk
+        order dan informasi.</p>
+      <div class="cta-btn-row">
+        <a href="https://wa.me/6285156952944" target="_blank" class="btn-gold">PESAN VIA WHATSAPP</a>
+        <a href="apps/kontak.html" class="btn-outline-gold">LIHAT LOKASI</a>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- ── ABOUT STRIP ── -->
-<div class="about-strip">
-  <!-- Kiri: foto suasana (gambar ke-2 = 23.png) -->
-  <div class="about-strip-img">
-    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" alt="Suasana Basoria">
-    <div class="about-strip-img-overlay"></div>
-  </div>
-  <!-- Kanan: teks -->
-  <div class="about-strip-body">
-    <p class="eyebrow dark">TENTANG BASORIA</p>
-    <h2 class="section-heading" style="margin-bottom:1.2rem;">Bakso dengan <em>cita rasa juara</em></h2>
-    <p class="about-body-text">
-      BASORIA adalah sebuah brand bisnis bakso yang mengusung slogan "Rasa Juara di Setiap Mangkok", menghadirkan makna lebih dari sekadar makanan. Di Indonesia, bakso bukan hanya hidangan sehari-hari, melainkan makanan rakyat yang bisa dinikmati oleh semua kalangan.
-    </p>
-    <p class="about-body-text">
-      Dari nilai tersebut, BASORIA membawa tiga inti utama: <strong>Juara</strong> dalam kualitas rasa, <strong>Kehangatan</strong> dalam pelayanan, dan <strong>Premium tapi Merakyat</strong> — bakso untuk semua orang dengan standar yang lebih tinggi.
-    </p>
-    <div class="stats-row">
-      <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">VARIAN BAKSO</div></div>
-      <div class="stat-item"><div class="stat-num">2023</div><div class="stat-label">BERDIRI SEJAK</div></div>
-      <div class="stat-item"><div class="stat-num">10–22</div><div class="stat-label">JAM LAYANAN</div></div>
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="public/header menu menu/LOGOBASORIA.PNG" alt="Basoria" class="footer-logo-img">
+        <div class="footer-brand-name">BASORIA</div>
+        <div class="footer-brand-tag">Rasa Juara di Setiap Mangkok</div>
+      </div>
+      <div class="footer-col">
+        <h4>LOKASI</h4>
+        <p>Jl. Pajajaran, Bogor</p>
+        <p>West Java, Indonesia</p>
+        <p>Near Telkom &amp; IPB University</p>
+      </div>
+      <div class="footer-col">
+        <h4>JAM OPERASIONAL</h4>
+        <p>Buka: 09.00 WIB</p>
+        <p>Layanan: 10.00 – 22.00 WIB</p>
+        <p>Setiap Hari</p>
+      </div>
+      <div class="footer-col">
+        <h4>HUBUNGI KAMI</h4>
+        <a href="https://instagram.com/basoriaa" target="_blank">@basoriaa</a>
+        <a href="https://wa.me/6285156952944" target="_blank">0851-5695-2944</a>
+        <a href="apps/menu.html">Menu Digital</a>
+      </div>
     </div>
-  </div>
-</div>
+    <div class="footer-hr"></div>
+    <div class="footer-bottom">
+      <span>© 2025 Basoria Indonesia · Est. 2023</span>
+      <span>Rasa Juara di Setiap Mangkok</span>
+    </div>
+  </footer>
 
-<!-- ── MENU PREVIEW (tanpa harga) ── -->
-<div class="menu-preview-section">
-  <div class="menu-preview-header">
-    <div>
-      <p class="eyebrow dark">MENU KAMI</p>
-      <h2 class="section-heading">Menu <em>Andalan</em></h2>
-    </div>
-    <a href="menu.html" class="btn-outline-dark">LIHAT SEMUA MENU →</a>
-  </div>
-  <div class="menu-preview-grid" id="dynamic-preview-container">
-    <!-- Di-render oleh JavaScript dari LocalStorage (Bisa digulir horisontal) -->
-  </div>
-</div>
-
-<!-- ── CTA BAND ── -->
-<div class="cta-band">
-  <div class="cta-band-bg"></div>
-  <div class="cta-band-pattern"></div>
-  <div class="cta-band-content">
-    <h2>Buka Setiap Hari<br>Pukul 10.00 – 22.00 WIB</h2>
-    <p>Kunjungi kami di Jl. Pajajaran Bogor — dekat Telkom &amp; IPB University. Atau hubungi kami via WhatsApp untuk order dan informasi.</p>
-    <div class="cta-btn-row">
-      <a href="https://wa.me/6285156952944" target="_blank" class="btn-gold">PESAN VIA WHATSAPP</a>
-      <a href="kontak.html" class="btn-outline-gold">LIHAT LOKASI</a>
-    </div>
-  </div>
-</div>
-
-<!-- ── FOOTER ── -->
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=150&auto=format&fit=crop" alt="Basoria" class="footer-logo-img">
-      <div class="footer-brand-name">BASORIA</div>
-      <div class="footer-brand-tag">Rasa Juara di Setiap Mangkok</div>
-    </div>
-    <div class="footer-col">
-      <h4>LOKASI</h4>
-      <p>Jl. Pajajaran, Bogor</p>
-      <p>West Java, Indonesia</p>
-      <p>Near Telkom &amp; IPB University</p>
-    </div>
-    <div class="footer-col">
-      <h4>JAM OPERASIONAL</h4>
-      <p>Buka: 09.00 WIB</p>
-      <p>Layanan: 10.00 – 22.00 WIB</p>
-      <p>Setiap Hari</p>
-    </div>
-    <div class="footer-col">
-      <h4>HUBUNGI KAMI</h4>
-      <a href="https://instagram.com/basoriaa" target="_blank">@basoriaa</a>
-      <a href="https://wa.me/6285156952944" target="_blank">0851-5695-2944</a>
-      <a href="menu.html">Menu Digital</a>
-    </div>
-  </div>
-  <div class="footer-hr"></div>
-  <div class="footer-bottom">
-    <span>© 2025 Basoria Indonesia · Est. 2023</span>
-    <span>Rasa Juara di Setiap Mangkok</span>
-  </div>
-</footer>
-
-<script src="menu-display.js"></script>
-<script src="nav.js"></script>
+  <script src="apps/javascript/menu-display.js"></script>
+  <script src="apps/javascript/nav.js"></script>
 </body>
+
 </html>

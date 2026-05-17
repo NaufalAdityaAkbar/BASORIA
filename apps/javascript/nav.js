@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Create Mobile Header and Footer inside navLinks if not present
     if (!document.querySelector('.mobile-nav-header')) {
+      const isSubPage = window.location.pathname.includes('/apps/');
+      const resolvePath = (path) => {
+        if (path === 'index.html') {
+          return isSubPage ? '../index.html' : 'index.html';
+        }
+        return isSubPage ? path : 'apps/' + path;
+      };
+
       const header = document.createElement('li');
       header.className = 'mobile-nav-header';
       header.innerHTML = `
@@ -25,8 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
       footer.innerHTML = `
         <p>Nikmati Bakso Juara dengan rasa autentik dan bahan premium langsung dari Bogor.</p>
         <div class="mobile-nav-btns">
-          <a href="kontak.html" class="btn-join">HUBUNGI</a>
-          <a href="admin.html" class="btn-signin">ADMIN</a>
+          <a href="${resolvePath('kontak.html')}" class="btn-join">HUBUNGI</a>
         </div>
       `;
       navLinks.appendChild(footer);
