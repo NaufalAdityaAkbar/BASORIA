@@ -27,8 +27,7 @@ const defaultMenus = [
   { id: 6, name: "Bakso Telor", price: 18000, desc: "Bakso klasik dengan telur rebus di dalamnya. Sederhana namun selalu lezat.", img: "public/telor.jpeg", badge: "", category: "bakso" },
   { id: 7, name: "Bakso Iga", price: 30000, desc: "Bakso premium dengan campuran daging iga sapi pilihan. Kuah kaldu yang kaya dan dalam.", img: "public/tulang.jpeg", badge: "PREMIUM", category: "bakso" },
   { id: 8, name: "Bakso Original", price: 15000, desc: "Bakso klasik tanpa tambahan. Kenyal, gurih, dan selalu pas untuk semua selera.", img: "public/daging.jpeg", badge: "", category: "bakso" },
-  { id: 9, name: "Pilus", price: 2000, desc: "", img: "", badge: "", category: "topping" },
-  { id: 10, name: "Cikur", price: 3000, desc: "", img: "", badge: "", category: "topping" },
+  { id: 9, name: "Baso Pilus Cikur", price: 3000, desc: "", img: "", badge: "", category: "topping" },
   { id: 11, name: "Kerupuk Lidah", price: 3000, desc: "", img: "", badge: "", category: "topping" },
   { id: 12, name: "Kerupuk Kulit", price: 5000, desc: "", img: "", badge: "", category: "topping" },
   { id: 13, name: "Es Teh Manis (ice/non)", price: 5000, desc: "", img: "", badge: "", category: "minuman" },
@@ -86,6 +85,16 @@ function migrateMenuData(menus) {
   };
 
   let changed = false;
+
+  // Merge "Pilus" and "Cikur" if they are present as separate items
+  const hasPilusOrCikur = menus.some(m => m.name === "Pilus" || m.name === "Cikur");
+  if (hasPilusOrCikur) {
+    menus = menus.filter(m => m.name !== "Pilus" && m.name !== "Cikur" && m.id !== 9 && m.id !== 10);
+    menus.push({ id: 9, name: "Baso Pilus Cikur", price: 3000, desc: "", img: "", badge: "", category: "topping" });
+    menus.sort((a, b) => a.id - b.id);
+    changed = true;
+  }
+
   const updated = menus.map(m => {
     if (m.img && map[m.img]) {
       changed = true;
