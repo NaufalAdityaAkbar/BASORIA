@@ -22,17 +22,81 @@ const defaultMenus = [
   { id: 19, name: "Coca-Cola Ice", price: 7000, desc: "", img: "", badge: "", category: "minuman" }
 ];
 
+// Safe localStorage wrapper to prevent crashes under file:// protocol
+let inMemoryStorage = {};
+
+function safeGetItem(key) {
+  try {
+    return localStorage.getItem(key) || inMemoryStorage[key] || null;
+  } catch (e) {
+    console.warn("Storage read blocked, using in-memory fallback:", e);
+    return inMemoryStorage[key] || null;
+  }
+}
+
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (e) {
+    console.warn("Storage write blocked, using in-memory fallback:", e);
+    inMemoryStorage[key] = value;
+    return true;
+  }
+}
+
+function migrateMenuData(menus) {
+  const map = {
+    "img/bakso-tetelan.jpg": "https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-beranak.jpg": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-mercon.jpg": "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-keju.jpg": "https://images.unsplash.com/photo-1625944230945-1b7dd12a80f1?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-urat.jpg": "https://images.unsplash.com/photo-1548811462-86ee2b3eeb0c?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-telor.jpg": "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-iga.jpg": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-original.jpg": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=400&auto=format&fit=crop"
+  };
+
+  let changed = false;
+  const updated = menus.map(m => {
+    if (m.img && map[m.img]) {
+      changed = true;
+      return { ...m, img: map[m.img] };
+    }
+    if (m.img && m.img.startsWith("img/bakso-")) {
+      changed = true;
+      const baseName = m.img.split("/").pop().replace(".jpg", "");
+      const match = Object.keys(map).find(k => k.includes(baseName));
+      if (match) {
+        return { ...m, img: map[match] };
+      }
+      return { ...m, img: "https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop" };
+    }
+    return m;
+  });
+
+  if (changed) {
+    safeSetItem('basoria_menus', JSON.stringify(updated));
+  }
+  return updated;
+}
+
 function getMenus() {
-  let menus = localStorage.getItem('basoria_menus');
+  let menus = safeGetItem('basoria_menus');
   if (!menus) {
-    localStorage.setItem('basoria_menus', JSON.stringify(defaultMenus));
+    safeSetItem('basoria_menus', JSON.stringify(defaultMenus));
     return defaultMenus;
   }
-  return JSON.parse(menus);
+  try {
+    const parsed = JSON.parse(menus);
+    return migrateMenuData(parsed);
+  } catch (err) {
+    return defaultMenus;
+  }
 }
 
 function saveMenus(menus) {
-  localStorage.setItem('basoria_menus', JSON.stringify(menus));
+  safeSetItem('basoria_menus', JSON.stringify(menus));
 }
 
 function renderTable() {

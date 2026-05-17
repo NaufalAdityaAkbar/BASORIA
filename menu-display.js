@@ -22,13 +22,77 @@ const defaultMenusData = [
   { id: 19, name: "Coca-Cola Ice", price: 7000, desc: "", img: "", badge: "", category: "minuman" }
 ];
 
+// Safe localStorage wrapper to prevent crashes under file:// protocol
+let inMemoryStorage = {};
+
+function safeGetItem(key) {
+  try {
+    return localStorage.getItem(key) || inMemoryStorage[key] || null;
+  } catch (e) {
+    console.warn("Storage read blocked, using in-memory fallback:", e);
+    return inMemoryStorage[key] || null;
+  }
+}
+
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (e) {
+    console.warn("Storage write blocked, using in-memory fallback:", e);
+    inMemoryStorage[key] = value;
+    return true;
+  }
+}
+
+function migrateMenuData(menus) {
+  const map = {
+    "img/bakso-tetelan.jpg": "https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-beranak.jpg": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-mercon.jpg": "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-keju.jpg": "https://images.unsplash.com/photo-1625944230945-1b7dd12a80f1?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-urat.jpg": "https://images.unsplash.com/photo-1548811462-86ee2b3eeb0c?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-telor.jpg": "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-iga.jpg": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop",
+    "img/bakso-original.jpg": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=400&auto=format&fit=crop"
+  };
+
+  let changed = false;
+  const updated = menus.map(m => {
+    if (m.img && map[m.img]) {
+      changed = true;
+      return { ...m, img: map[m.img] };
+    }
+    if (m.img && m.img.startsWith("img/bakso-")) {
+      changed = true;
+      const baseName = m.img.split("/").pop().replace(".jpg", "");
+      const match = Object.keys(map).find(k => k.includes(baseName));
+      if (match) {
+        return { ...m, img: map[match] };
+      }
+      return { ...m, img: "https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop" };
+    }
+    return m;
+  });
+
+  if (changed) {
+    safeSetItem('basoria_menus', JSON.stringify(updated));
+  }
+  return updated;
+}
+
 function getMenuData() {
-  let menus = localStorage.getItem('basoria_menus');
+  let menus = safeGetItem('basoria_menus');
   if (!menus) {
-    localStorage.setItem('basoria_menus', JSON.stringify(defaultMenusData));
+    safeSetItem('basoria_menus', JSON.stringify(defaultMenusData));
     return defaultMenusData;
   }
-  return JSON.parse(menus);
+  try {
+    const parsed = JSON.parse(menus);
+    return migrateMenuData(parsed);
+  } catch (err) {
+    return defaultMenusData;
+  }
 }
 
 function getBadgeHtml(badge) {
@@ -38,6 +102,66 @@ function getBadgeHtml(badge) {
   if (b.includes('PEDAS')) bClass = 'badge-red';
   if (b.includes('PREMIUM')) bClass = 'badge-navy';
   return `<span class="badge ${bClass}">${b}</span>`;
+}
+
+// Dynamic robust online image fallback resolver
+function getOnlineImageFallback(item) {
+  if (item.img && (item.img.startsWith('http://') || item.img.startsWith('https://'))) {
+    return item.img;
+  }
+  
+  const name = (item.name || '').toLowerCase();
+  
+  // Bakso Varian
+  if (name.includes('tetelan')) {
+    return 'https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('beranak')) {
+    return 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('mercon')) {
+    return 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('keju')) {
+    return 'https://images.unsplash.com/photo-1625944230945-1b7dd12a80f1?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('urat')) {
+    return 'https://images.unsplash.com/photo-1548811462-86ee2b3eeb0c?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('telor') || name.includes('telur')) {
+    return 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('iga')) {
+    return 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('original') || name.includes('biasa') || name.includes('polos')) {
+    return 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=400&auto=format&fit=crop';
+  }
+  if (item.category === 'bakso') {
+    return 'https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop';
+  }
+
+  // Topping & Pelengkap
+  if (name.includes('teh')) {
+    return 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('jeruk')) {
+    return 'https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('kelapa')) {
+    return 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('alpukat')) {
+    return 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('coca') || name.includes('cola') || name.includes('soda')) {
+    return 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=400&auto=format&fit=crop';
+  }
+  if (name.includes('mineral') || name.includes('air')) {
+    return 'https://images.unsplash.com/photo-1608885898957-a599fb1b4661?q=80&w=400&auto=format&fit=crop';
+  }
+
+  return 'https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       html += `
         <div class="menu-full-card fade-up ${delayClass}">
           <div class="menu-full-card-img">
-            <img src="${b.img || 'img/suasana.jpg'}" alt="${b.name}">
+            <img src="${getOnlineImageFallback(b)}" alt="${b.name}">
           </div>
           <div class="menu-full-card-body">
             <div class="mfc-top">
@@ -112,11 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Untuk Halaman index.html (Preview Menu) ---
   const previewContainer = document.getElementById('dynamic-preview-container');
   if (previewContainer) {
-    // Tampilkan gabungan bakso & minuman dll minimal 10 item (atau semuanya jika kurang dari 10)
-    // Filter hanya yang memiliki gambar untuk ditampilkan di preview card
-    const itemsWithImg = menus.filter(m => m.img !== '');
-    // Tampilkan hingga 10 item (atau fallback ke semua item)
-    const previewMenus = itemsWithImg.length > 0 ? itemsWithImg.slice(0, 10) : menus.slice(0, 10);
+    // Tampilkan gabungan bakso & minuman dll
+    // Filter hanya yang memiliki gambar atau bisa diselesaikan lewat fallback
+    const previewMenus = menus.slice(0, 10);
     
     let html = '';
     previewMenus.forEach((m, index) => {
@@ -124,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       html += `
         <div class="menu-card-preview fade-up ${delayClass}">
           <div class="menu-card-preview-img">
-            <img src="${m.img || 'img/suasana.jpg'}" alt="${m.name}">
+            <img src="${getOnlineImageFallback(m)}" alt="${m.name}">
           </div>
           <div class="menu-card-preview-body">
             <div class="menu-card-preview-name">${m.name}</div>
@@ -136,14 +258,98 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="mcp-price">Rp ${m.price.toLocaleString('id-ID')}</div>
             
             <div class="mcp-footer">
-              <span class="mcp-time">Siap 10 Menit</span>
-              <a href="menu.html" class="mcp-btn">Pesan</a>
+               <span class="mcp-time">Siap 10 Menit</span>
+               <a href="menu.html" class="mcp-btn">Pesan</a>
             </div>
           </div>
         </div>
       `;
     });
     previewContainer.innerHTML = html;
+
+    // --- PREMIUM INTERACTIVITY: Drag-to-Scroll & Mouse-Wheel & Mobile Touch Scroll ---
+    let isDown = false;
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+
+    // Set initial cursor state
+    previewContainer.style.cursor = 'grab';
+
+    // Touch events for ultra-smooth mobile swipe and snap behavior
+    previewContainer.addEventListener('touchstart', () => {
+      // Temporarily disable scroll snap for smooth free scrolling tracking finger
+      previewContainer.style.scrollSnapType = 'none';
+      previewContainer.style.scrollBehavior = 'auto';
+    }, { passive: true });
+
+    previewContainer.addEventListener('touchend', () => {
+      // Restore scroll snap to beautifully snap to nearest card when user lifts finger
+      previewContainer.style.scrollSnapType = 'x mandatory';
+      previewContainer.style.scrollBehavior = 'smooth';
+    }, { passive: true });
+
+    // Mouse drag support
+    previewContainer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      isDragging = false;
+      
+      // Temporarily disable snapping and smooth scroll during dragging for a highly responsive feel
+      previewContainer.style.scrollSnapType = 'none';
+      previewContainer.style.scrollBehavior = 'auto';
+      previewContainer.style.cursor = 'grabbing';
+      
+      startX = e.pageX - previewContainer.offsetLeft;
+      scrollLeft = previewContainer.scrollLeft;
+    });
+
+    previewContainer.addEventListener('mouseleave', () => {
+      if (isDown) {
+        isDown = false;
+        previewContainer.style.cursor = 'grab';
+        previewContainer.style.scrollSnapType = 'x mandatory';
+        previewContainer.style.scrollBehavior = 'smooth';
+      }
+    });
+
+    previewContainer.addEventListener('mouseup', () => {
+      isDown = false;
+      previewContainer.style.cursor = 'grab';
+      
+      // Re-enable horizontal snap and smooth scrolling on release
+      previewContainer.style.scrollSnapType = 'x mandatory';
+      previewContainer.style.scrollBehavior = 'smooth';
+    });
+
+    previewContainer.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      
+      const x = e.pageX - previewContainer.offsetLeft;
+      const walk = (x - startX) * 1.6; // Scroll speed multiplier
+      
+      if (Math.abs(x - startX) > 5) {
+        isDragging = true;
+      }
+      
+      previewContainer.scrollLeft = scrollLeft - walk;
+    });
+
+    // Prevent links inside card from firing click events if the user is dragging
+    previewContainer.addEventListener('click', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    // Mouse Wheel Scroll translation (vertical wheel to horizontal scroll)
+    previewContainer.addEventListener('wheel', (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        previewContainer.scrollLeft += e.deltaY * 0.9;
+      }
+    }, { passive: false });
   }
 });
 
