@@ -3,32 +3,32 @@
 // Dynamic path resolver to support both root index.html and sub-folder apps/ pages
 function resolvePath(path) {
   const isSubPage = window.location.pathname.includes('/apps/');
-  
+
   if (path && (path.startsWith('public/') || path.startsWith('https://images.unsplash.com'))) {
     return (isSubPage ? '../' : '') + path;
   }
-  
+
   if (path && path.endsWith('.html')) {
     if (path === 'index.html') {
       return isSubPage ? '../index.html' : 'index.html';
     }
     return isSubPage ? path : 'apps/' + path;
   }
-  
+
   return path;
 }
 
 const defaultMenusData = [
   { id: 1, name: "Bakso Tetelan", price: 20000, desc: "Bakso dengan tambahan tetelan daging sapi empuk dan gurih dalam kuah kaldu spesial.", img: "public/tetelan.jpeg", badge: "", category: "bakso" },
-  { id: 2, name: "Bakso Beranak", price: 30000, desc: "Bakso besar berisi bakso-bakso kecil di dalamnya. Dua kali nikmat dalam satu suapan.", img: "public/beranak.jpeg", badge: "POPULER", category: "bakso" },
+  { id: 2, name: "Bakso Beranak", price: 30000, desc: "Bakso besar berisi bakso-bakso kecil di dalamnya. Dua kali nikmat dalam satu suapan.", img: "public/bakso_beranak.jpeg", badge: "POPULER", category: "bakso" },
   { id: 3, name: "Bakso Mercon 🌶️", price: 20000, desc: "Sensasi pedas meledak dari dalam. Cocok untuk pecinta makanan pedas sejati.", img: "public/rawit.jpeg", badge: "PEDAS", category: "bakso" },
   { id: 4, name: "Bakso Keju Lumer 🧀", price: 22000, desc: "Bakso dengan kejutan keju meleleh di dalamnya. Unik, creamy, dan memanjakan lidah.", img: "public/lumer.jpeg", badge: "", category: "bakso" },
   { id: 5, name: "Bakso Urat", price: 20000, desc: "Bakso dengan tekstur kenyal dari serat urat daging sapi pilihan. Gurih dan memuaskan.", img: "public/kikilan.jpeg", badge: "", category: "bakso" },
   { id: 6, name: "Bakso Telor", price: 18000, desc: "Bakso klasik dengan telur rebus di dalamnya. Sederhana namun selalu lezat.", img: "public/telor.jpeg", badge: "", category: "bakso" },
   { id: 7, name: "Bakso Iga", price: 30000, desc: "Bakso premium dengan campuran daging iga sapi pilihan. Kuah kaldu yang kaya dan dalam.", img: "public/tulang.jpeg", badge: "PREMIUM", category: "bakso" },
-  { id: 8, name: "Bakso Original", price: 15000, desc: "Bakso klasik tanpa tambahan. Kenyal, gurih, dan selalu pas untuk semua selera.", img: "public/daging.jpeg", badge: "", category: "bakso" },
-  { id: 9, name: "Baso Pilus Cikur", price: 3000, desc: "", img: "", badge: "", category: "topping" },
-  { id: 11, name: "Kerupuk Lidah", price: 3000, desc: "", img: "", badge: "", category: "topping" },
+  { id: 8, name: "Bakso Original", price: 15000, desc: "Bakso klasik tanpa tambahan. Kenyal, gurih, dan selalu pas untuk semua selera.", img: "public/original.jpeg", badge: "", category: "bakso" },
+  { id: 9, name: "Pilus Cikur", price: 3000, desc: "", img: "public/piluscikur.jpeg", badge: "", category: "topping" },
+  { id: 11, name: "Kerupuk Lidah", price: 3000, desc: "", img: "public/lidah.jpeg", badge: "", category: "topping" },
   { id: 12, name: "Kerupuk Kulit", price: 5000, desc: "", img: "", badge: "", category: "topping" },
   { id: 13, name: "Es Teh Manis (ice/non)", price: 5000, desc: "", img: "", badge: "", category: "minuman" },
   { id: 14, name: "Lemon Tea", price: 6000, desc: "", img: "", badge: "", category: "minuman" },
@@ -65,7 +65,7 @@ function safeSetItem(key, value) {
 function migrateMenuData(menus) {
   const map = {
     "img/bakso-tetelan.jpg": "public/tetelan.jpeg",
-    "img/bakso-beranak.jpg": "public/beranak.jpeg",
+    "img/bakso-beranak.jpg": "public/bakso_beranak.jpeg",
     "img/bakso-mercon.jpg": "public/rawit.jpeg",
     "img/bakso-keju.jpg": "public/lumer.jpeg",
     "img/bakso-urat.jpg": "public/kikilan.jpeg",
@@ -75,13 +75,13 @@ function migrateMenuData(menus) {
 
     // Map old Unsplash URLs to local images for smooth migration
     "https://images.unsplash.com/photo-1590483736622-39fa9a8fae85?q=80&w=400&auto=format&fit=crop": "public/tetelan.jpeg",
-    "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop": "public/beranak.jpeg",
+    "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop": "public/bakso_beranak.jpeg",
     "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=400&auto=format&fit=crop": "public/rawit.jpeg",
     "https://images.unsplash.com/photo-1625944230945-1b7dd12a80f1?q=80&w=400&auto=format&fit=crop": "public/lumer.jpeg",
     "https://images.unsplash.com/photo-1548811462-86ee2b3eeb0c?q=80&w=400&auto=format&fit=crop": "public/kikilan.jpeg",
     "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=400&auto=format&fit=crop": "public/telor.jpeg",
     "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop": "public/tulang.jpeg",
-    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=400&auto=format&fit=crop": "public/daging.jpeg"
+    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=400&auto=format&fit=crop": "public/original.jpeg"
   };
 
   let changed = false;
@@ -104,14 +104,14 @@ function migrateMenuData(menus) {
       changed = true;
       const nameLower = (m.name || "").toLowerCase();
       if (nameLower.includes("tetelan")) return { ...m, img: "public/tetelan.jpeg" };
-      if (nameLower.includes("beranak")) return { ...m, img: "public/beranak.jpeg" };
+      if (nameLower.includes("beranak")) return { ...m, img: "public/bakso_beranak.jpeg" };
       if (nameLower.includes("mercon") || nameLower.includes("rawit")) return { ...m, img: "public/rawit.jpeg" };
       if (nameLower.includes("keju") || nameLower.includes("lumer")) return { ...m, img: "public/lumer.jpeg" };
       if (nameLower.includes("urat") || nameLower.includes("kikil")) return { ...m, img: "public/kikilan.jpeg" };
       if (nameLower.includes("telor") || nameLower.includes("telur")) return { ...m, img: "public/telor.jpeg" };
       if (nameLower.includes("iga") || nameLower.includes("tulang")) return { ...m, img: "public/tulang.jpeg" };
-      if (nameLower.includes("original") || nameLower.includes("biasa") || nameLower.includes("daging")) return { ...m, img: "public/daging.jpeg" };
-      return { ...m, img: "public/daging.jpeg" };
+      if (nameLower.includes("original") || nameLower.includes("biasa") || nameLower.includes("daging")) return { ...m, img: "public/original.jpeg" };
+      return { ...m, img: "public/original.jpeg" };
     }
     return m;
   });
@@ -150,15 +150,15 @@ function getOnlineImageFallback(item) {
   if (item.img && (item.img.startsWith('public/') || item.img.startsWith('http://') || item.img.startsWith('https://'))) {
     return item.img;
   }
-  
+
   const name = (item.name || '').toLowerCase();
-  
+
   // Bakso Varian
   if (name.includes('tetelan')) {
     return 'public/tetelan.jpeg';
   }
   if (name.includes('beranak')) {
-    return 'public/beranak.jpeg';
+    return 'public/bakso_beranak.jpeg';
   }
   if (name.includes('mercon') || name.includes('rawit')) {
     return 'public/rawit.jpeg';
@@ -176,10 +176,10 @@ function getOnlineImageFallback(item) {
     return 'public/tulang.jpeg';
   }
   if (name.includes('original') || name.includes('biasa') || name.includes('polos') || name.includes('daging')) {
-    return 'public/daging.jpeg';
+    return 'public/original.jpeg';
   }
   if (item.category === 'bakso') {
-    return 'public/daging.jpeg';
+    return 'public/original.jpeg';
   }
 
   // Topping & Pelengkap
@@ -202,12 +202,12 @@ function getOnlineImageFallback(item) {
     return 'https://images.unsplash.com/photo-1608885898957-a599fb1b4661?q=80&w=400&auto=format&fit=crop';
   }
 
-  return 'public/daging.jpeg';
+  return 'public/original.jpeg';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const menus = getMenuData();
-  
+
   const baksoContainer = document.getElementById('dynamic-bakso-container');
   const otherContainer = document.getElementById('dynamic-other-container');
 
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tampilkan gabungan bakso & minuman dll
     // Filter hanya yang memiliki gambar atau bisa diselesaikan lewat fallback
     const previewMenus = menus.slice(0, 10);
-    
+
     let html = '';
     previewMenus.forEach((m, index) => {
       let delayClass = `delay-${(index % 3) * 100}`;
@@ -334,12 +334,12 @@ document.addEventListener('DOMContentLoaded', () => {
     previewContainer.addEventListener('mousedown', (e) => {
       isDown = true;
       isDragging = false;
-      
+
       // Temporarily disable snapping and smooth scroll during dragging for a highly responsive feel
       previewContainer.style.scrollSnapType = 'none';
       previewContainer.style.scrollBehavior = 'auto';
       previewContainer.style.cursor = 'grabbing';
-      
+
       startX = e.pageX - previewContainer.offsetLeft;
       scrollLeft = previewContainer.scrollLeft;
     });
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     previewContainer.addEventListener('mouseup', () => {
       isDown = false;
       previewContainer.style.cursor = 'grab';
-      
+
       // Re-enable horizontal snap and smooth scrolling on release
       previewContainer.style.scrollSnapType = 'x mandatory';
       previewContainer.style.scrollBehavior = 'smooth';
@@ -365,14 +365,14 @@ document.addEventListener('DOMContentLoaded', () => {
     previewContainer.addEventListener('mousemove', (e) => {
       if (!isDown) return;
       e.preventDefault();
-      
+
       const x = e.pageX - previewContainer.offsetLeft;
       const walk = (x - startX) * 1.6; // Scroll speed multiplier
-      
+
       if (Math.abs(x - startX) > 5) {
         isDragging = true;
       }
-      
+
       previewContainer.scrollLeft = scrollLeft - walk;
     });
 
