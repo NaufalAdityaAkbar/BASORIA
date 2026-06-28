@@ -18,6 +18,8 @@ function resolvePath(path) {
   return path;
 }
 
+const DATA_VERSION = "v2.0";
+
 const defaultMenusData = [
   { id: 1, name: "Bakso Tetelan", price: 20000, desc: "Bakso dengan tambahan tetelan daging sapi empuk dan gurih dalam kuah kaldu spesial.", img: "public/tetelan.jpeg", badge: "", category: "bakso" },
   { id: 2, name: "Bakso Beranak", price: 30000, desc: "Bakso besar berisi bakso-bakso kecil di dalamnya. Dua kali nikmat dalam satu suapan.", img: "public/bakso_beranak.jpeg", badge: "POPULER", category: "bakso" },
@@ -123,6 +125,12 @@ function migrateMenuData(menus) {
 }
 
 function getMenuData() {
+  const currentVer = safeGetItem('basoria_version');
+  if (currentVer !== DATA_VERSION) {
+    safeSetItem('basoria_version', DATA_VERSION);
+    safeSetItem('basoria_menus', JSON.stringify(defaultMenusData));
+    return defaultMenusData;
+  }
   let menus = safeGetItem('basoria_menus');
   if (!menus) {
     safeSetItem('basoria_menus', JSON.stringify(defaultMenusData));
