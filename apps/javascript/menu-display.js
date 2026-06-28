@@ -90,7 +90,7 @@ function migrateMenuData(menus) {
   const hasPilusOrCikur = menus.some(m => m.name === "Pilus" || m.name === "Cikur");
   if (hasPilusOrCikur) {
     menus = menus.filter(m => m.name !== "Pilus" && m.name !== "Cikur" && m.id !== 9 && m.id !== 10);
-    menus.push({ id: 9, name: "Baso Pilus Cikur", price: 3000, desc: "", img: "", badge: "", category: "topping" });
+    menus.push({ id: 9, name: "Pilus Cikur", price: 3000, desc: "", img: "public/piluscikur.jpeg", badge: "", category: "topping" });
     menus.sort((a, b) => a.id - b.id);
     changed = true;
   }
@@ -183,6 +183,12 @@ function getOnlineImageFallback(item) {
   }
 
   // Topping & Pelengkap
+  if (name.includes('pilus') || name.includes('cikur')) {
+    return 'public/piluscikur.jpeg';
+  }
+  if (name.includes('lidah')) {
+    return 'public/lidah.jpeg';
+  }
   if (name.includes('teh')) {
     return 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=400&auto=format&fit=crop';
   }
